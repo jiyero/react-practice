@@ -4,24 +4,29 @@ import { useDebounce } from "react-use";
 import Search from "./components/Search";
 import Spinner from "./components/Spinner";
 import MovieCard from "./components/MovieCard";
-import Dropdown from "./components/Dropdown";
 
 import { useGenres } from "./useGenres";
 import { useMovies } from "./useMovies";
+import GenresDropdown from "./GenresDropdown";
+import LangguageDropdown from "./LangguageDropdown";
+import { useLanguages } from "./useLanguages";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [genreId, setGenreId] = useState("");
+  const [language, setLanguage] = useState("");
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
   const { genresList } = useGenres();
+  const { languagesList } = useLanguages();
   const { movieList, isLoading, errorMessage, noMovies } = useMovies({
     query: debouncedSearchTerm,
     genreId,
     currentPage,
+    language,
   });
 
   return (
@@ -37,7 +42,11 @@ const App = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
-        <Dropdown setGenreId={setGenreId} genresList={genresList} />
+        <GenresDropdown setGenreId={setGenreId} genresList={genresList} />
+        <LangguageDropdown
+          setLanguage={setLanguage}
+          languagesList={languagesList}
+        />
 
         <section className="all-movies ">
           <h2 className="mt-[40px]">All Movies</h2>

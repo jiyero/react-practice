@@ -11,7 +11,7 @@ const API_OPTIONS = {
   },
 };
 
-export const useMovies = ({ query, genreId, currentPage }) => {
+export const useMovies = ({ query, genreId, currentPage, language }) => {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -28,7 +28,7 @@ export const useMovies = ({ query, genreId, currentPage }) => {
           ? `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
               query
             )}`
-          : `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${currentPage}&with_genres=${genreId}`;
+          : `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${currentPage}&with_genres=${genreId}&with_original_language=${language}`;
 
         const response = await fetch(endpoint, API_OPTIONS);
 
@@ -50,7 +50,7 @@ export const useMovies = ({ query, genreId, currentPage }) => {
     };
 
     fetchMovies();
-  }, [query, genreId, currentPage]);
+  }, [query, genreId, currentPage, language]);
 
   return { movieList, isLoading, errorMessage, noMovies };
 };
