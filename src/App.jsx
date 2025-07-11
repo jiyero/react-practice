@@ -10,6 +10,7 @@ import { useMovies } from "./useMovies";
 import GenresDropdown from "./GenresDropdown";
 import LangguageDropdown from "./LangguageDropdown";
 import { useLanguages } from "./useLanguages";
+import GenresCheckbox from "./GenresCheckbox";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,11 +43,20 @@ const App = () => {
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
-        <GenresDropdown setGenreId={setGenreId} genresList={genresList} />
-        <LangguageDropdown
-          setLanguage={setLanguage}
-          languagesList={languagesList}
-        />
+        <div className="m-5 ">
+          <GenresCheckbox
+            setGenreId={setGenreId}
+            genreId={genreId}
+            genresList={genresList}
+          />
+          <LangguageDropdown
+            className=""
+            setLanguage={setLanguage}
+            languagesList={languagesList}
+          />
+        </div>
+
+        {/* <GenresDropdown setGenreId={setGenreId} genresList={genresList} /> */}
 
         <section className="all-movies ">
           <h2 className="mt-[40px]">All Movies</h2>
